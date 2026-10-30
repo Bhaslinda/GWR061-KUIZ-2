@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KUIZ 2 - MODUL HAK PEKERJA (GWR061)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            body {
+                background-color: white !important;
+                color: black !important;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+        .omr-bubble {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1.5px solid #374151;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            position: relative;
+            background-color: #fff;
+        }
+        .omr-bubble.filled {
+            background-color: #111827 !important;
+            color: #ffffff !important;
+        }
+        .omr-mark {
+            position: absolute;
+            font-size: 16px;
+            font-weight: 900;
+            line-height: 1;
+            top: -3px;
+        }
+        .omr-mark.correct {
+            color: #22c55e;
+            text-shadow: 0px 0px 2px #ffffff;
+        }
+        .omr-mark.wrong {
+            color: #ef4444;
+            text-shadow: 0px 0px 2px #ffffff;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen text-gray-800 font-sans leading-relaxed">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="bg-blue-900 text-white shadow-md no-print sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap justify-between items-center">
+            <div>
+                <h1 class="text-xl font-bold tracking-wide">KOLEJ TEKNOLOGI TERMAJU</h1>
+                <p class="text-xs text-blue-200">JABATAN TENAGA MANUSIA, KAMPUS SANDAKAN</p>
+            </div>
+            <div class="mt-2 sm:mt-0 text-right">
+                <span class="inline-block bg-blue-800 text-blue-100 text-xs px-3 py-1 rounded-full font-semibold">
+                    MODUL: HAK PEKERJA (GWR061) — KUIZ 2
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-4 sm:p-6">
+
+        <!-- STUDENT INPUT FORM SECTION -->
+        <section id="studentFormSection" class="bg-white rounded-lg shadow-md p-6 mb-6 no-print">
+            <h2 class="text-lg font-bold text-gray-800 border-b pb-2 mb-4">MAKLUMAT PELAJAR</h2>
+            <form id="quizForm" onsubmit="startQuiz(event)">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nama Pelajar <span class="text-red-500">*</span></label>
+                        <input type="text" id="inputNama" required placeholder="Contoh: MUHAMMAD AMIR BIN ROSLI" class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">No. Kad Pengenalan <span class="text-red-500">*</span></label>
+                        <input type="text" id="inputIC" required placeholder="Contoh: 040512-12-5432" class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">NDP (No. Daftar Pelajar) <span class="text-red-500">*</span></label>
+                        <input type="text" id="inputNDP" required placeholder="Contoh: 23224012" class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Kelas <span class="text-red-500">*</span></label>
+                        <input type="text" id="inputKelas" required placeholder="Contoh: 1 STAS A" class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Sesi Latihan <span class="text-red-500">*</span></label>
+                        <input type="text" id="inputSesi" required placeholder="Contoh: SESI 1 / 2026" class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Tarikh Ujian <span class="text-red-500">*</span></label>
+                        <input type="date" id="inputTarikh" required class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nama Pegawai Penilai <span class="text-red-500">*</span></label>
+                        <input type="text" id="inputPengajar" required placeholder="Contoh: HASLINDA BINTI BOHARI" class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <button type="submit" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2.5 rounded transition shadow-md">
+                        MULA JAWAB UJIAN
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- QUIZ QUESTIONS SECTION -->
+        <section id="quizQuestionsSection" class="hidden bg-white rounded-lg shadow-md p-6 mb-6 no-print">
+            <div class="flex justify-between items-center border-b pb-3 mb-6">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800">SOALAN PENILAIAN TEORI - KUIZ 2: TOPIK 5 CARUMAN PERKESO (20 SOALAN)</h2>
+                    <p class="text-xs text-gray-500">Pilih SATU jawapan yang tepat bagi setiap soalan.</p>
+                </div>
+                <div class="text-right">
+                    <div id="timerDisplay" class="text-lg font-bold text-red-600 mb-1">Masa: 30:00</div>
+                    <span id="progressTracker" class="text-sm font-bold text-blue-700">0 / 20 Dijawab</span>
+                </div>
+            </div>
+
+            <form id="answersForm" onsubmit="submitAnswers(event)">
+                <div id="questionsContainer" class="space-y-8">
+                    <!-- Questions will be populated dynamically -->
+                </div>
+
+                <div class="mt-8 border-t pt-6 flex justify-end">
+                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded shadow-md transition">
+                        HANTAR JAWAPAN & JANA BORANG OMR
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- OMR RESULT SHEET SECTION -->
+        <section id="omrSection" class="hidden bg-white p-6 sm:p-8 rounded-lg shadow-lg border border-gray-300">
+            
+            <div class="no-print mb-6 flex justify-between items-center bg-gray-50 p-3 rounded border border-gray-200">
+                <span class="text-xs text-gray-600 font-medium">Borang OMR Rasmi Pelajar - KUIZ 2</span>
+                <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded shadow">
+                    🖨️ CETAK BORANG OMR / SIMPAN PDF
+                </button>
+            </div>
+
+            <!-- OMR HEADER WITH CENTERED COAT OF ARMS -->
+            <div class="border-b-2 border-gray-800 pb-4 mb-4 relative">
+                <div class="flex justify-end mb-1">
+                    <span class="border border-gray-400 text-[10px] px-2 py-0.5 inline-block font-mono">OMR-GWR061-K2</span>
+                </div>
+                <div class="text-center flex flex-col items-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Coat_of_arms_of_Malaysia.svg/500px-Coat_of_arms_of_Malaysia.svg.png" 
+                         alt="Jata Negara Malaysia" 
+                         class="w-20 h-auto object-contain mb-2">
+                    <h2 class="text-base font-bold tracking-wider uppercase">JABATAN TENAGA MANUSIA</h2>
+                    <h1 class="text-xl font-extrabold uppercase text-blue-900">KOLEJ TEKNOLOGI TERMAJU</h1>
+                    <h3 class="text-sm font-semibold uppercase tracking-wide">KAMPUS SANDAKAN</h3>
+                    <p class="text-xs font-medium text-gray-600 mt-1">BORANG JAWAPAN OMR & PENILAIAN HAK PEKERJA (GWR061) — KUIZ 2</p>
+                </div>
+            </div>
+
+            <!-- STUDENT & ASSESSMENT INFO -->
+            <div class="grid grid-cols-2 gap-x-6 gap-y-2 text-xs border border-gray-400 p-3 mb-6 bg-gray-50">
+                <div><span class="font-bold">NAMA PELAJAR:</span> <span id="omrNama" class="uppercase font-mono font-semibold"></span></div>
+                <div><span class="font-bold">NO. KAD PENGENALAN:</span> <span id="omrIC" class="font-mono"></span></div>
+                <div><span class="font-bold">NO. DAFTAR PELAJAR (NDP):</span> <span id="omrNDP" class="font-mono"></span></div>
+                <div><span class="font-bold">KELAS:</span> <span id="omrKelas" class="uppercase font-mono"></span></div>
+                <div><span class="font-bold">SESI LATIHAN:</span> <span id="omrSesi" class="uppercase font-mono"></span></div>
+                <div><span class="font-bold">TARIKH UJIAN:</span> <span id="omrTarikh"></span></div>
+            </div>
+
+            <!-- OMR BUBBLE MATRIX -->
+            <div class="mb-6">
+                <h4 class="text-xs font-bold uppercase mb-2 text-center tracking-wider border-b pb-1">PETAK JAWAPAN OMR (20 SOALAN)</h4>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-xs">
+                    <!-- Column 1: Q1 - Q10 -->
+                    <div class="border border-gray-300 p-2 space-y-1.5" id="omrCol1"></div>
+                    <!-- Column 2: Q11 - Q20 -->
+                    <div class="border border-gray-300 p-2 space-y-1.5" id="omrCol2"></div>
+                </div>
+            </div>
+
+            <!-- SUMMARY & RESULT SECTION -->
+            <div class="grid grid-cols-2 gap-4 border-2 border-gray-800 p-4 mb-6">
+                <div class="flex flex-col justify-center items-center border-r border-gray-400 pr-4">
+                    <span class="text-xs font-bold uppercase text-gray-600">JUMLAH MARKAH KESELURUHAN</span>
+                    <div class="text-3xl font-extrabold my-1" id="omrMarkahPercent">0%</div>
+                    <span class="text-xs font-medium text-gray-500" id="omrMarkahDetail">(0 / 20 Soalan Betul)</span>
+                </div>
+                <div class="flex flex-col justify-center items-center">
+                    <span class="text-xs font-bold uppercase text-gray-600">KEPUTUSAN PENILAIAN</span>
+                    <div class="text-2xl font-black mt-1 px-4 py-1 rounded" id="omrKeputusanBadge"></div>
+                </div>
+            </div>
+
+            <!-- INSTRUCTOR VERIFICATION / PERAKUAN SEMAKAN -->
+            <div class="border border-gray-400 p-4 text-xs bg-gray-50">
+                <h4 class="font-bold uppercase text-gray-800 mb-2 border-b border-gray-300 pb-1">PERAKUAN SEMAKAN OLEH PEGAWAI PENILAI (PP)</h4>
+                <div class="grid grid-cols-2 gap-4 pt-2">
+                    <div>
+                        <p><span class="font-bold">NAMA PEGAWAI PENILAI (PP):</span> <span id="omrPengajar" class="uppercase font-semibold"></span></p>
+                        <p class="mt-4"><span class="font-bold">TANDATANGAN:</span> ___________________________</p>
+                    </div>
+                    <div class="text-right flex flex-col justify-end">
+                        <p><span class="font-bold">TARIKH SEMAKAN:</span> <span id="omrTarikhSemakan"></span></p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        // MASUKKAN PAUTAN WEB APP GOOGLE APPS SCRIPT ANDA DI ANTARA TANDA PETIK INI
+        const SCRIPT_URL = "GANTIKAN_DENGAN_WEB_APP_URL_ANDA";
+
+        const questionsData = [
+            {
+                no: 1,
+                q: "Bilakah tarikh akhir bayaran caruman bulanan PERKESO yang wajib dibuat oleh majikan bagi sesuatu bulan ganjaran?",
+                options: {
+                    A: "Pada hari terakhir bulan berkenaan",
+                    B: "Sebelum atau pada 15 haribulan pada bulan berikutnya",
+                    C: "Pada 30 haribulan pada bulan berikutnya",
+                    D: "Dalam tempoh 60 hari dari tarikh pembayar gaji"
+                },
+                ans: "B"
+            },
+            {
+                no: 2,
+                q: "Di bawah Akta Keselamatan Sosial Pekerja 1969 (Akta 4), siapakah yang tertakluk di bawah caruman PERKESO Kategori Kedua (Skim Bencana Pekerjaan Sahaja)?",
+                options: {
+                    A: "Pekerja berumur di bawah 60 tahun yang berkhidmat sepenuh masa",
+                    B: "Pekerja yang mencapai umur 60 tahun dan masih bekerja, atau pekerja yang kali pertama menyertai caruman selepas berumur 55 tahun",
+                    C: "Semua suri rumah berinsurans di bawah umur 55 tahun",
+                    D: "Pemandu teksi dan e-hailing di bawah SKSPS"
+                },
+                ans: "B"
+            },
+            {
+                no: 3,
+                q: "Berapakah jumlah caruman tahunan bagi Skim Keselamatan Sosial Suri Rumah (SKSSR / LINDUNG KASIH) yang dibayar secara sekaligus (advance)?",
+                options: {
+                    A: "RM60 setahun",
+                    B: "RM100 setahun",
+                    C: "RM120 setahun",
+                    D: "RM240 setahun"
+                },
+                ans: "C"
+            },
+            {
+                no: 4,
+                q: "Apakah portal dalam talian rasmi PERKESO yang digunakan oleh majikan untuk pendaftaran syarikat, pendaftaran pekerja, dan pembayaran caruman bulanan?",
+                options: {
+                    A: "Portal MYFutureJobs",
+                    B: "Portal ASSIST",
+                    C: "Portal SISPAA",
+                    D: "Portal e-Statistik"
+                },
+                ans: "B"
+            },
+            {
+                no: 5,
+                q: "Bagaimanakah pembahagian kadar caruman Kategori Pertama (Skim Bencana Pekerjaan dan Skim Keilatan) dibagikan di antara majikan dengan pekerja di bawah Akta 4?",
+                options: {
+                    A: "Majikan 1.75% dan Pekerja 0.5% daripada gaji bulanan pekerja",
+                    B: "Majikan 0.5% dan Pekerja 1.75% daripada gaji bulanan pekerja",
+                    C: "Majikan 1.25% dan Pekerja 1.25% daripada gaji bulanan pekerja",
+                    D: "Ditanggung 100% oleh majikan tanpa sebarang potongan gaji pekerja"
+                },
+                ans: "A"
+            },
+            {
+                no: 6,
+                q: "Mengapakah pemotongan caruman bulanan PERKESO syer pekerja wajib dibuat menerusi potongan gaji oleh majikan?",
+                options: {
+                    A: "Untuk mengumpul dana dividen tahunan persaraan persendirian majikan.",
+                    B: "Sebagai obligasi statutori bagi memastikan pekerja mendapat perlindungan insurans sosial berterusan sekiranya berlaku kemalangan atau keilatan.",
+                    C: "Bagi menggantikan cukai perkhidmatan perniagaan yang dikenakan oleh kerajaan.",
+                    D: "Sebagai yuran keahlian kelab kebajikan pekerja syarikat."
+                },
+                ans: "B"
+            },
+            {
+                no: 7,
+                q: "Apakah implikasi kepada pencarum sekiranya perkhidmatan di bawah Skim Keselamatan Sosial Pekerjaan Sendiri (SKSPS / LINDUNG KENDIRI) tidak diperbaharui selepas tempoh caruman tamat?",
+                options: {
+                    A: "Perlindungan keselamatan sosial akan terbatal serta-merta selepas tempoh matang tamat sehingga caruman baharu dijelaskan.",
+                    B: "PERKESO akan menyita aset perniagaan individu secara automatik.",
+                    C: "Pencarum akan dikenakan hukuman penjara 2 tahun oleh Jabatan Tenaga Kerja.",
+                    D: "Lesen perniagaan perkhidamatan e-hailing dilenyapkan oleh LHDN."
+                },
+                ans: "A"
+            },
+            {
+                no: 8,
+                q: "Di bawah prinsip caruman PERKESO, apakah yang dimaksudkan dengan siling gaji caruman maksimum di bawah pindaan Akta 4 terkini?",
+                options: {
+                    A: "Gaji minimum RM1,500 yang ditetapkan kerajaan.",
+                    B: "Had maksimum gaji bulanan yang tertakluk kepada pengiraan caruman (iaitu RM6,000 sebulan), di mana sebarang gaji melebihi had ini dikira berdasarkan caruman had maksimum tersebut.",
+                    C: "Had gaji maksimum RM2,000 sahaja bagi pekerja asing.",
+                    D: "Jumlah pemotongan gaji yang tidak boleh melebihi 50% daripada gaji kasar bulanan."
+                },
+                ans: "B"
+            },
+            {
+                no: 9,
+                q: "Encik Rahim mula bekerja di sebuah syarikat perkilangan dengan gaji bulanan RM2,500. Beliau berumur 28 tahun dan belum pernah mendaftar PERKESO. Kategori caruman manakah yang wajib didaftarkan oleh majikannya di bawah Akta 4?",
+                options: {
+                    A: "Kategori Kedua (Skim Bencana Pekerjaan Sahaja)",
+                    B: "Kategori Pertama (Skim Bencana Pekerjaan dan Skim Keilatan)",
+                    C: "Skim Keselamatan Sosial Suri Rumah (SKSSR)",
+                    D: "Skim Keselamatan Sosial Pekerjaan Sendiri (Pelan 4)"
+                },
+                ans: "B"
+            },
+            {
+                no: 10,
+                q: "Puan Aminah berusia 42 tahun dan bekerja sepenuh masa sebagai suri rumah di rumahnya. Beliau ingin mendaftar dan membayar caruman di bawah Skim Keselamatan Sosial Suri Rumah (SKSSR). Saluran manakah yang membolehkannya membuat bayaran caruman RM120 tersebut?",
+                options: {
+                    A: "Melalui portal i-Saraan KWSP",
+                    B: "Menerusi Portal PRIHATIN / Kaunselor PERKESO / Perbankan Dalam Talian yang dilantik",
+                    C: "Melalui potongan gaji suami oleh Jabatan Tenaga Kerja",
+                    D: "Menyerahkan wang tunai kepada Balai Polis terdekat"
+                },
+                ans: "B"
+            },
+            {
+                no: 11,
+                q: "Berapakah kadar Faedah Lewat Bayar Caruman (FBLM) yang boleh dikenakan ke atas majikan yang gagal menjelaskan bayaran caruman PERKESO selepas 15 haribulan?",
+                options: {
+                    A: "2% setahun bagi setiap hari kelewatan",
+                    B: "6% setahun bagi setiap hari kelewatan",
+                    C: "10% setahun bagi setiap hari kelewatan",
+                    D: "12% setahun bagi setiap hari kelewatan"
+                },
+                ans: "B"
+            },
+            {
+                no: 12,
+                q: "Mengapakah pekerja asing di Malaysia tertakluk kepada caruman PERKESO di bawah Akta 4 berbanding skema insurans pampasan pekerja terdahulu?",
+                options: {
+                    A: "Bagi memastikan pekerja asing menikmati faedah perlindungan keselamatan sosial, pampasan, dan rawatan perubatan yang setara dengan pekerja tempatan mengikut piawaian antarabangsa.",
+                    B: "Untuk membolehkan pekerja asing mendapat hak pencen bulanan persaraan seumur hidup di Malaysia.",
+                    C: "Bagi membolehkan kerajaan mengecualikan sebarang bayaran levi pekerja asing.",
+                    D: "Supaya majikan tidak perlu membayar gaji bulanan kepada pekerja asing."
+                },
+                ans: "A"
+            },
+            {
+                no: 13,
+                q: "Bagaimanakah penentuan kadar caruman dibuat di bawah Skim Keselamatan Sosial Pekerjaan Sendiri (SKSPS) bagi individu yang menjalankan perniagaan sendiri?",
+                options: {
+                    A: "Kadar caruman dipotong secara automatik daripada Akaun 2 KWSP pencarum.",
+                    B: "Pencarum memilih salah satu daripada 4 Pelan Pilihan Caruman berdasarkan anggaran pendapatan bulanan pilihan mereka (Pelan 1 hingga Pelan 4).",
+                    C: "Kadar caruman ditetapkan secara tetap oleh Jabatan Tenaga Kerja Sabah mengikut lesen perniagaan.",
+                    D: "Dibiayai 100% oleh pinjaman kerajaan persekutuan."
+                },
+                ans: "B"
+            },
+            {
+                no: 14,
+                q: "Apakah perbezaan utama pembiayaan caruman antara Skim Bencana Pekerjaan (Akta 4) dengan Skim LINDUNG 24 Jam (SKBBK)?",
+                options: {
+                    A: "Skim Bencana Pekerjaan dibiayai oleh Majikan dan Pekerja secara bersama, manakala SKBBK dibiayai 100% oleh Kerajaan.",
+                    B: "Skim Bencana Pekerjaan melibatkan syer Majikan (1.75%), manakala caruman SKBBK (0.75% Fasa 1) dibiayai sepenuhnya oleh pekerja itu sendiri menerusi potongan gaji.",
+                    C: "Skim Bencana Pekerjaan dibayar secara tunai di kaunter, manakala SKBBK dibayar menggunakan kad kredit majikan.",
+                    D: "Tiada sebarang pembiayaan diperlukan untuk kedua-dua skim ini."
+                },
+                ans: "B"
+            },
+            {
+                no: 15,
+                q: "Syarikat Maju Bina Sdn. Bhd. terlupa memindahkan bayaran caruman PERKESO pekerja bagi bulan Ogos 2026 sehingga 25 September 2026. Apakah kesan tindakan kelewatan ini mengikut peraturan PERKESO?",
+                options: {
+                    A: "Pendaftaran syarikat terbatal secara automatik serta-merta.",
+                    B: "Syarikat dikenakan caj Faedah Lewat Bayar Caruman (FBLM) 6% setahun bagi hari kelewatan dan boleh didakwa jika berterusan.",
+                    C: "Pekerja syarikat tidak lagi berhak menuntut pampasan kemalangan sepanjang hayat.",
+                    D: "Majikan diwajibkan mendaftar semula perniagaan di Jabatan Tenaga Kerja Sarawak."
+                },
+                ans: "B"
+            },
+            {
+                no: 16,
+                q: "Encik Farid ialah seorang peniaga Nasi Lemak (penjaja kecil) sepenuh masa. Beliau mendaftar di bawah SKSPS dengan memilih Pelan 2 (Caruman RM232.80 setahun). Sekiranya beliau mengalami kecederaan akibat melecur minyak panas semasa memasak untuk jualan, adakah beliau layak menerima Faedah Hilang Upaya Sementara (HUS)?",
+                options: {
+                    A: "Tidak layak, kerana perniagaan Makanan tidak termasuk dalam 20 sektor SKSPS.",
+                    B: "Layak, kerana kemalangan tersebut berlaku semasa menjalankan aktiviti pekerjaan sendiri di bawah sektor Makanan dan terliput di bawah SKSPS.",
+                    C: "Tidak layak, kecuali jika beliau mendaftar caruman SKSSR melalui suaminya.",
+                    D: "Layak, tetapi pampasan dibayar dalam bentuk baucer beras percuma oleh LHDN."
+                },
+                ans: "B"
+            },
+            {
+                no: 17,
+                q: "Analisis prinsip "Once In, Always In" (Sekali Layak, Terus Layak) di bawah Akta 4 dan Akta 800. Bagaimanakah prinsip ini mempengaruhi kewajipan caruman pekerja tempatan yang mengalami penurunan gaji di bawah had kelayakan minimum?",
+                options: {
+                    A: "Kewajipan caruman terbatal secara automatik sekiranya gaji pekerja turun di bawah RM30 sebulan.",
+                    B: "Sekali pekerja layak dan mendaftar di bawah Akta 4/Akta 800, pekerja tersebut kekal tertakluk kepada caruman berterusan selagi masih berstatus pekerja aktif, walaupun gajinya berubah.",
+                    C: "Majikan dikecualikan daripada mencarum bagi bulan di mana gaji pekerja terjejas akibat cuti tanpa gaji.",
+                    D: "Pekerja dikehendaki memohon lesen perniagaan baharu di bawah Ordinan Buruh Sabah."
+                },
+                ans: "B"
+            },
+            {
+                no: 18,
+                q: "Encik Kumar bekerja dengan dua majikan berbeza (Syarikat X pada waktu pagi dan Syarikat Y pada waktu malam). Berkenaan caruman Skim LINDUNG 24 Jam (SKBBK) yang dibiayai oleh pekerja, bagaimanakah caruman ini diselaraskan mengikut garis panduan rasmi PERKESO?",
+                options: {
+                    A: "Syarikat X dan Syarikat Y wajib membuat potongan 0.75% secara serentak daripada kedua-dua gajinya.",
+                    B: "Encik Kumar perlu memilih SALAH SATU majikan sahaja untuk membuat pemotongan caruman LINDUNG 24 Jam dengan melengkapkan borang pilihan majikan.",
+                    C: "Kedua-dua majikan dikecualikan daripada memotong caruman kerana terdapat pertindihan perkhidmatan.",
+                    D: "Pemotongan caruman disalurkan terus ke akaun SKSSR suaminya."
+                },
+                ans: "B"
+            },
+            {
+                no: 19,
+                q: "Sebuah syarikat didapati dengan sengaja memotong 1.75% gaji pekerja bagi membayar syer MAJIKAN di bawah Kategori Pertama Akta 4, di samping memotong 0.5% syer pekerja. Apakah rumusan undang-undang yang tepat mengenai tindakan majikan ini di bawah Akta 4?",
+                options: {
+                    A: "Tindakan majikan adalah sah sekiranya terdapat persetujuan dalam Surat Tawaran Kerja.",
+                    B: "Tindakan majikan adalah tidak sah dan merupakan kesalahan jenayah di bawah Akta 4 kerana syer majikan adalah tanggungan mutlak majikan dan dilarang dipindahkan kepada pekerja.",
+                    C: "Majikan dibenarkan melakukan potongan tersebut jika syarikat mencatatkan kerugian tahunan.",
+                    D: "Pemotongan tersebut dipindahkan secara automatik ke dalam dividen Akaun 1 KWSP pekerja."
+                },
+                ans: "B"
+            },
+            {
+                no: 20,
+                q: "Puan Linda memilih untuk keluar (opt-out) daripada Skim LINDUNG 24 Jam (SKBBK) melalui Portal PRIHATIN semasa tempoh bertenang. Namun begitu, majikannya tersilap memotong caruman RM18.75 daripada gajinya pada bulan Julai 2026. Bagaimanakah prosedur bayaran balik (refund) caruman tersebut dilaksanakan mengikut tatacara PERKESO?",
+                options: {
+                    A: "Puan Linda mesti hadir ke kaunter PERKESO untuk menuntut bayaran balik secara tunai.",
+                    B: "Tuntutan bayaran balik caruman (refund) mesti dikemukakan oleh MAJIKAN melalui Portal ASSIST di bawah Modul Inspection (Bayaran Balik).",
+                    C: "Wang caruman dipindahkan secara automatik sebagai dividen i-Suri KWSP.",
+                    D: "Tuntutan refund tidak disokong dan wang tersebut dikira hangus disisi undang-undang."
+                },
+                ans: "B"
+            }
+        ];
+
+        let studentDetails = {};
+        const studentAnswers = {};
+        let timerInterval = null;
+        let timeRemaining = 30 * 60; // 30 minit
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('hasTakenQuiz_GWR061_K2') === 'true') {
+                alert("Anda telah mengambil penilaian ini. Setiap pelajar hanya dibenarkan mengambil ujian ini SEKALI sahaja.");
+                document.body.innerHTML = `
+                    <div class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+                        <div class="bg-white p-8 rounded-lg shadow-md text-center max-w-md border border-red-300">
+                            <h2 class="text-xl font-bold text-red-600 mb-2">AKSES DIHALANG</h2>
+                            <p class="text-sm text-gray-700">Anda telah menghantar KUIZ 2 (GWR061) ini sebelum ini. Penilaian hanya boleh diambil satu kali sahaja.</p>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+        function startQuiz(e) {
+            e.preventDefault();
+            studentDetails = {
+                nama: document.getElementById('inputNama').value,
+                ic: document.getElementById('inputIC').value,
+                ndp: document.getElementById('inputNDP').value,
+                kelas: document.getElementById('inputKelas').value,
+                sesi: document.getElementById('inputSesi').value,
+                tarikh: document.getElementById('inputTarikh').value,
+                pengajar: document.getElementById('inputPengajar').value
+            };
+
+            document.getElementById('studentFormSection').classList.add('hidden');
+            document.getElementById('quizQuestionsSection').classList.remove('hidden');
+            
+            renderQuestions();
+            startTimer();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById('timerDisplay').innerText = `Masa: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    alert("Masa 30 minit telah tamat! Jawapan anda akan dihantar secara automatik.");
+                    autoSubmitAnswers();
+                }
+            }, 1000);
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+
+            questionsData.forEach(q => {
+                const qCard = document.createElement('div');
+                qCard.className = 'border border-gray-200 rounded-lg p-5 bg-gray-50 hover:bg-white transition shadow-sm';
+                
+                let optionsHTML = '';
+                for (const key in q.options) {
+                    optionsHTML += `
+                        <label class="flex items-start space-x-3 p-2.5 rounded hover:bg-blue-50 cursor-pointer border border-transparent hover:border-blue-200 transition">
+                            <input type="radio" name="question_${q.no}" value="${key}" onchange="recordAnswer(${q.no}, '${key}')" class="mt-0.5 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                            <span class="text-sm font-medium text-gray-800"><strong class="text-blue-900">${key}.</strong> ${q.options[key]}</span>
+                        </label>
+                    `;
+                }
+
+                qCard.innerHTML = `
+                    <p class="font-bold text-base text-blue-950 mb-3">${q.no}. ${q.q}</p>
+                    <div class="space-y-1.5">${optionsHTML}</div>
+                `;
+                container.appendChild(qCard);
+            });
+        }
+
+        function recordAnswer(qNo, selectedOption) {
+            studentAnswers[qNo] = selectedOption;
+            const count = Object.keys(studentAnswers).length;
+            document.getElementById('progressTracker').innerText = `${count} / 20 Dijawab`;
+        }
+
+        function submitAnswers(e) {
+            e.preventDefault();
+            if (Object.keys(studentAnswers).length < 20) {
+                if (!confirm("Anda belum menjawab semua soalan. Adakah anda pasti mahu menghantar?")) {
+                    return;
+                }
+            }
+            processSubmission();
+        }
+
+        function autoSubmitAnswers() {
+            processSubmission();
+        }
+
+        function processSubmission() {
+            if (timerInterval) clearInterval(timerInterval);
+
+            localStorage.setItem('hasTakenQuiz_GWR061_K2', 'true');
+
+            document.getElementById('quizQuestionsSection').classList.add('hidden');
+            document.getElementById('omrSection').classList.remove('hidden');
+
+            generateOMR();
+            hantarKeGoogleDrive();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function generateOMR() {
+            document.getElementById('omrNama').innerText = studentDetails.nama;
+            document.getElementById('omrIC').innerText = studentDetails.ic;
+            document.getElementById('omrNDP').innerText = studentDetails.ndp;
+            document.getElementById('omrKelas').innerText = studentDetails.kelas;
+            document.getElementById('omrSesi').innerText = studentDetails.sesi;
+            document.getElementById('omrTarikh').innerText = formatDate(studentDetails.tarikh);
+            document.getElementById('omrPengajar').innerText = studentDetails.pengajar;
+            document.getElementById('omrTarikhSemakan').innerText = formatDate(new Date().toISOString().split('T')[0]);
+
+            let totalCorrect = 0;
+            const col1 = document.getElementById('omrCol1');
+            const col2 = document.getElementById('omrCol2');
+
+            col1.innerHTML = '';
+            col2.innerHTML = '';
+
+            questionsData.forEach(q => {
+                const userAns = studentAnswers[q.no] || null;
+                const isCorrect = userAns === q.ans;
+                if (isCorrect) totalCorrect++;
+
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between py-1 border-b border-gray-200 last:border-b-0';
+
+                let bubblesHTML = '';
+                ['A', 'B', 'C', 'D'].forEach(opt => {
+                    let isFilled = (userAns === opt);
+                    let markHTML = '';
+
+                    if (isFilled) {
+                        if (isCorrect) {
+                            markHTML = `<span class="omr-mark correct">✓</span>`;
+                        } else {
+                            markHTML = `<span class="omr-mark wrong">✗</span>`;
+                        }
+                    }
+
+                    bubblesHTML += `
+                        <div class="omr-bubble ${isFilled ? 'filled' : ''}">
+                            ${opt}
+                            ${markHTML}
+                        </div>
+                    `;
+                });
+
+                row.innerHTML = `
+                    <span class="font-bold w-6 text-gray-700">${q.no.toString().padStart(2, '0')}.</span>
+                    <div class="flex space-x-2">
+                        ${bubblesHTML}
+                    </div>
+                `;
+
+                if (q.no <= 10) col1.appendChild(row);
+                else col2.appendChild(row);
+            });
+
+            const percentage = Math.round((totalCorrect / 20) * 100);
+            document.getElementById('omrMarkahPercent').innerText = `${percentage}%`;
+            document.getElementById('omrMarkahDetail').innerText = `(${totalCorrect} / 20 Soalan Betul)`;
+
+            const isPassed = percentage >= 60;
+            const badge = document.getElementById('omrKeputusanBadge');
+            if (isPassed) {
+                badge.innerText = "TERAMPIL";
+                badge.className = "text-2xl font-black mt-1 px-4 py-1 rounded bg-green-100 text-green-800 border border-green-400";
+            } else {
+                badge.innerText = "BELUM TERAMPIL";
+                badge.className = "text-2xl font-black mt-1 px-4 py-1 rounded bg-red-100 text-red-800 border border-red-400";
+            }
+        }
+
+        function hantarKeGoogleDrive() {
+            if (!SCRIPT_URL || SCRIPT_URL.includes("https://script.google.com/macros/s/AKfycbx6VkuQGRbqzhVusCTCZvr7SBXcHqDET1KH3lz0P_M5xhucqFpUYBsrQvfInPAODSEa2w/exec")) {
+                console.warn("URL Google Apps Script belum ditetapkan.");
+                return;
+            }
+
+            const omrClone = document.getElementById('omrSection').cloneNode(true);
+            const noPrint = omrClone.querySelector('.no-print');
+            if (noPrint) noPrint.remove();
+
+            const fullHtml = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <script src="https://cdn.tailwindcss.com"><\/script>
+                    <style>
+                        .omr-bubble {
+                            width: 20px; height: 20px; border-radius: 50%;
+                            border: 1px solid #333; display: inline-flex;
+                            align-items: center; justify-content: center;
+                            font-size: 9px; font-weight: bold; position: relative;
+                        }
+                        .omr-bubble.filled { background-color: #111 !important; color: #fff !important; }
+                        .omr-mark { position: absolute; font-size: 14px; top: -3px; }
+                        .omr-mark.correct { color: #16a34a; }
+                        .omr-mark.wrong { color: #dc2626; }
+                    </style>
+                </head>
+                <body class="p-4 bg-white text-gray-800">
+                    ${omrClone.innerHTML}
+                </body>
+                </html>
+            `;
+
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    quizTitle: "KUIZ 2",
+                    nama: studentDetails.nama,
+                    ndp: studentDetails.ndp,
+                    htmlContent: fullHtml
+                })
+            }).then(() => {
+                const statusDiv = document.createElement('div');
+                statusDiv.className = "bg-green-100 border border-green-400 text-green-800 px-4 py-3 rounded mb-4 text-center text-sm font-semibold";
+                statusDiv.innerText = "✓ Salinan borang OMR (KUIZ 2) berjaya dihantar ke Google Drive pensyarah.";
+                document.getElementById('omrSection').prepend(statusDiv);
+            }).catch(err => {
+                console.error("Ralat penghantaran:", err);
+            });
+        }
+
+        function formatDate(str) {
+            if (!str) return '';
+            const parts = str.split('-');
+            if (parts.length === 3) {
+                return `${parts[2]}/${parts[1]}/${parts[0]}`;
+            }
+            return str;
+        }
+    </script>
+</body>
+</html>
